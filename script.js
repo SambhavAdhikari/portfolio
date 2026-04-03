@@ -491,35 +491,104 @@ function initCounters() {
 /* ════════════════════════════════════════
    13. CONTACT FORM
 ════════════════════════════════════════ */
+/* ─────────────────────────────────────────────────────────
+   EmailJS CONFIG  ← Replace these three values after setup
+   Steps:
+   1. Go to https://www.emailjs.com  → Sign up free
+   2. Add Service → connect your Gmail (atsa2815@gmail.com)
+      → copy the Service ID  → paste as EMAILJS_SERVICE_ID
+   3. Create Email Template with variables:
+      {{from_name}}, {{reply_to}}, {{message}}
+      → copy the Template ID → paste as EMAILJS_TEMPLATE_ID
+   4. Go to Account → copy Public Key → paste as EMAILJS_PUBLIC_KEY
+   ───────────────────────────────────────────────────────── */
+const EMAILJS_PUBLIC_KEY   = '9zTs-jfU4SZjGonKS';       // ← replace
+const EMAILJS_SERVICE_ID   = 'service_9j5hn8i';       // ← replace
+const EMAILJS_TEMPLATE_ID  = 'template_549b4uf';      // ← replace
+
 function initForm() {
   const form    = $('#contact-form');
   const success = $('#form-success');
+  const error   = $('#form-error');
   if (!form) return;
 
-  form.addEventListener('submit', e => {
+  // Initialise EmailJS with your public key
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  }
+
+  // Real-time field validation highlight
+  ['name','email','message'].forEach(id => {
+    const el = $(`#${id}`);
+    if (!el) return;
+    el.addEventListener('input', () => {
+      el.style.borderColor = el.value.trim() ? 'rgba(0,245,196,0.4)' : '';
+    });
+  });
+
+  form.addEventListener('submit', async e => {
     e.preventDefault();
 
-    const name  = $('#name').value.trim();
-    const email = $('#email').value.trim();
-    const msg   = $('#message').value.trim();
+    const nameVal  = $('#name').value.trim();
+    const emailVal = $('#email').value.trim();
+    const msgVal   = $('#message').value.trim();
 
-    if (!name || !email || !msg) return;
+    // Simple validation
+    if (!nameVal || !emailVal || !msgVal) {
+      ['name','email','message'].forEach(id => {
+        const el = $(`#${id}`);
+        if (el && !el.value.trim()) el.style.borderColor = 'rgba(255,58,92,0.6)';
+      });
+      return;
+    }
 
-    // Simulate send (replace with real API call)
-    const btn = form.querySelector('.btn-submit');
-    btn.querySelector('.btn-text').textContent = 'SENDING...';
+    const btn     = form.querySelector('.btn-submit');
+    const btnText = btn.querySelector('.btn-text');
+
+    // Loading state
+    btnText.textContent = 'SENDING...';
     btn.disabled = true;
+    success.classList.remove('show');
+    error.classList.remove('show');
 
-    setTimeout(() => {
-      btn.querySelector('.btn-text').textContent = 'SENT ✓';
+    // Check keys are configured
+    if (EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
+      // Dev mode: show success after 1.2s (keys not set yet)
+      setTimeout(() => {
+        btnText.textContent = 'SENT ✓';
+        success.classList.add('show');
+        form.reset();
+        setTimeout(() => {
+          btnText.textContent = 'SEND MESSAGE';
+          btn.disabled = false;
+          success.classList.remove('show');
+        }, 4000);
+      }, 1200);
+      return;
+    }
+
+    try {
+      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
+      btnText.textContent = 'SENT ✓';
       success.classList.add('show');
       form.reset();
+      // Reset field border colors
+      ['name','email','message'].forEach(id => {
+        const el = $(`#${id}`);
+        if (el) el.style.borderColor = '';
+      });
       setTimeout(() => {
-        btn.querySelector('.btn-text').textContent = 'SEND MESSAGE';
+        btnText.textContent = 'SEND MESSAGE';
         btn.disabled = false;
         success.classList.remove('show');
-      }, 4000);
-    }, 1500);
+      }, 5000);
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      btnText.textContent = 'SEND MESSAGE';
+      btn.disabled = false;
+      error.classList.add('show');
+      setTimeout(() => error.classList.remove('show'), 5000);
+    }
   });
 }
 

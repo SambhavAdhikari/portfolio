@@ -1593,6 +1593,17 @@ section {
 }
 .form-success.show { display: flex; }
 
+.form-error {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--red);
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.form-error.show { display: flex; }
+
 /* Responsive handled in section 17 */
 
 

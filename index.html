@@ -420,7 +420,7 @@
 
       <!-- Project 1 -->
       <a class="project-card tilt-card reveal-up" data-delay="0"
-         href="https://github.com/SambhavAdhikari/sausam" target="_blank" rel="noopener noreferrer"
+         href="https://github.com/SambhavAdhikari" target="_blank" rel="noopener noreferrer"
          aria-label="View Note Portal on GitHub">
         <div class="project-card-inner">
           <div class="project-header">
@@ -456,8 +456,8 @@
 
       <!-- Project 2 -->
       <a class="project-card tilt-card reveal-up" data-delay="150"
-         href="https://chittoo.netlify.app/" target="_blank" rel="noopener noreferrer"
-         aria-label="View Chitto">
+         href="https://github.com/SambhavAdhikari" target="_blank" rel="noopener noreferrer"
+         aria-label="View Chitto on GitHub">
         <div class="project-card-inner">
           <div class="project-header">
             <span class="project-num">002</span>
@@ -484,7 +484,7 @@
             <span class="stack-tag">CSS</span>
             <span class="stack-tag">JavaScript</span>
           </div>
-          <div class="project-cta">Click to view chitto ↗</div>
+          <div class="project-cta">Click to view on GitHub ↗</div>
           <div class="project-glow"></div>
           <div class="card-scanner"></div>
         </div>
@@ -492,8 +492,8 @@
 
       <!-- Project 3 -->
       <a class="project-card tilt-card reveal-up" data-delay="300"
-         href="https://khogaya.netlify.app/" target="_blank" rel="noopener noreferrer"
-         aria-label="View Lost and Found Portal">
+         href="https://github.com/SambhavAdhikari" target="_blank" rel="noopener noreferrer"
+         aria-label="View Lost and Found Portal on GitHub">
         <div class="project-card-inner">
           <div class="project-header">
             <span class="project-num">003</span>
@@ -520,7 +520,7 @@
             <span class="stack-tag">CSS</span>
             <span class="stack-tag">JavaScript</span>
           </div>
-          <div class="project-cta">Click to view portal↗</div>
+          <div class="project-cta">Click to view on GitHub ↗</div>
           <div class="project-glow"></div>
           <div class="card-scanner"></div>
         </div>
@@ -597,11 +597,11 @@
           Hit me up — I reply fast.
         </p>
         <div class="contact-items">
-          <a href="mailto:atsa2815@gmail.com" class="contact-item magnetic">
+          <a href="/cdn-cgi/l/email-protection#e283969183d0dad3d7a2858f838b8ecc818d8f" class="contact-item magnetic">
             <span class="ci-icon">📧</span>
             <div>
               <span class="ci-label">Email</span>
-              <span class="ci-val">atsa2815@gmail.com</span>
+              <span class="ci-val"><span class="__cf_email__" data-cfemail="e081949381d2d8d1d5a0878d81898cce838f8d">[email&#160;protected]</span></span>
             </div>
           </a>
           <a href="tel:+9779844923972" class="contact-item magnetic">
@@ -639,17 +639,17 @@
         <form class="contact-form" id="contact-form" novalidate>
           <div class="form-group">
             <label for="name">YOUR NAME</label>
-            <input type="text" id="name" placeholder="John Doe" required />
+            <input type="text" id="name" name="from_name" placeholder="John Doe" required />
             <span class="form-line"></span>
           </div>
           <div class="form-group">
             <label for="email">YOUR EMAIL</label>
-            <input type="email" id="email" placeholder="john@example.com" required />
+            <input type="email" id="email" name="reply_to" placeholder="john@example.com" required />
             <span class="form-line"></span>
           </div>
           <div class="form-group">
             <label for="message">YOUR MESSAGE</label>
-            <textarea id="message" rows="5" placeholder="Let's work together..." required></textarea>
+            <textarea id="message" name="message" rows="5" placeholder="Let's work together..." required></textarea>
             <span class="form-line"></span>
           </div>
           <button type="submit" class="btn-primary btn-submit magnetic">
@@ -658,7 +658,10 @@
             <span class="btn-glow"></span>
           </button>
           <div class="form-success" id="form-success">
-            <span>✓ Message sent! I'll reply soon.</span>
+            <span>✓ Message sent! Sambhav will reply soon.</span>
+          </div>
+          <div class="form-error" id="form-error">
+            <span>✗ Failed to send. Please try emailing directly.</span>
           </div>
         </form>
       </div>
@@ -681,7 +684,7 @@
     <p class="footer-copy">© 2025 Sambhav. Designed &amp; Developed by Sambhav.</p>
   </footer>
 
-
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
